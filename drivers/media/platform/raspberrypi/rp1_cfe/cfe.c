@@ -432,9 +432,9 @@ static int format_show(struct seq_file *s, void *data)
 			   node_desc[i].name, state);
 
 		if (node_supports_image(node))
-			seq_printf(s, "format: " V4L2_FOURCC_CONV " 0x%x\n"
+			seq_printf(s, "format: %p4cc 0x%x\n"
 				      "resolution: %ux%u\nbpl: %u\nsize: %u\n",
-				   V4L2_FOURCC_CONV_ARGS(node->vid_fmt.fmt.pix.pixelformat),
+				   &node->vid_fmt.fmt.pix.pixelformat,
 				   node->vid_fmt.fmt.pix.pixelformat,
 				   node->vid_fmt.fmt.pix.width,
 				   node->vid_fmt.fmt.pix.height,
@@ -442,8 +442,8 @@ static int format_show(struct seq_file *s, void *data)
 				   node->vid_fmt.fmt.pix.sizeimage);
 
 		if (node_supports_meta(node))
-			seq_printf(s, "format: " V4L2_FOURCC_CONV " 0x%x\nsize: %u\n",
-				   V4L2_FOURCC_CONV_ARGS(node->meta_fmt.fmt.meta.dataformat),
+			seq_printf(s, "format: %p4cc 0x%x\nsize: %u\n",
+				   &node->meta_fmt.fmt.meta.dataformat,
 				   node->meta_fmt.fmt.meta.dataformat,
 				   node->meta_fmt.fmt.meta.buffersize);
 	}
@@ -540,8 +540,8 @@ static int cfe_calc_format_size_bpl(struct cfe_device *cfe,
 
 	f->fmt.pix.sizeimage = f->fmt.pix.height * f->fmt.pix.bytesperline;
 
-	cfe_dbg("%s: " V4L2_FOURCC_CONV " size: %ux%u bpl:%u img_size:%u\n",
-		__func__, V4L2_FOURCC_CONV_ARGS(f->fmt.pix.pixelformat),
+	cfe_dbg("%s: %p4cc size: %ux%u bpl:%u img_size:%u\n",
+		__func__, &f->fmt.pix.pixelformat,
 		f->fmt.pix.width, f->fmt.pix.height,
 		f->fmt.pix.bytesperline, f->fmt.pix.sizeimage);
 
@@ -1324,10 +1324,10 @@ static int try_fmt_vid_cap(struct cfe_node *node, struct v4l2_format *f)
 	struct cfe_device *cfe = node->cfe;
 	const struct cfe_fmt *fmt;
 
-	cfe_dbg("%s: [%s] %ux%u, V4L2 pix " V4L2_FOURCC_CONV "\n",
+	cfe_dbg("%s: [%s] %ux%u, V4L2 pix %p4cc\n",
 		__func__, node_desc[node->id].name,
 		f->fmt.pix.width, f->fmt.pix.height,
-		V4L2_FOURCC_CONV_ARGS(f->fmt.pix.pixelformat));
+		&f->fmt.pix.pixelformat);
 
 	if (!node_supports_image_output(node))
 		return -EINVAL;
@@ -1372,9 +1372,9 @@ static int cfe_s_fmt_vid_cap(struct file *file, void *priv,
 
 	node->vid_fmt = *f;
 
-	cfe_dbg("%s: Set %ux%u, V4L2 pix " V4L2_FOURCC_CONV "\n", __func__,
+	cfe_dbg("%s: Set %ux%u, V4L2 pix %p4cc\n", __func__,
 		node->vid_fmt.fmt.pix.width, node->vid_fmt.fmt.pix.height,
-		V4L2_FOURCC_CONV_ARGS(node->vid_fmt.fmt.pix.pixelformat));
+		&node->vid_fmt.fmt.pix.pixelformat);
 
 	return 0;
 }
@@ -1480,8 +1480,8 @@ static int cfe_s_fmt_meta(struct file *file, void *priv, struct v4l2_format *f)
 
 	node->meta_fmt = *f;
 
-	cfe_dbg("%s: Set " V4L2_FOURCC_CONV "\n", __func__,
-		V4L2_FOURCC_CONV_ARGS(node->meta_fmt.fmt.meta.dataformat));
+	cfe_dbg("%s: Set %p4cc\n", __func__,
+		&node->meta_fmt.fmt.meta.dataformat);
 
 	return 0;
 }
