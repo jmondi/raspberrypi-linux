@@ -1221,9 +1221,9 @@ static int try_format(struct v4l2_format *f, struct pispbe_node *node)
 	u32 pixfmt = f->fmt.pix_mp.pixelformat;
 
 	dev_dbg(pispbe->dev,
-		"%s: [%s] req %ux%u " V4L2_FOURCC_CONV ", planes %d\n",
+		"%s: [%s] req %ux%u %p4cc, planes %d\n",
 		__func__, NODE_NAME(node), f->fmt.pix_mp.width,
-		f->fmt.pix_mp.height, V4L2_FOURCC_CONV_ARGS(pixfmt),
+		f->fmt.pix_mp.height, &pixfmt,
 		f->fmt.pix_mp.num_planes);
 
 	if (pixfmt == V4L2_PIX_FMT_RPI_BE)
@@ -1373,9 +1373,9 @@ static int pispbe_node_s_fmt_vid_cap(struct file *file, void *priv,
 	node->pisp_format = find_format(f->fmt.pix_mp.pixelformat);
 
 	dev_dbg(pispbe->dev,
-		"Set capture format for node %s to " V4L2_FOURCC_CONV "\n",
+		"Set capture format for node %s to %p4cc\n",
 		NODE_NAME(node),
-		V4L2_FOURCC_CONV_ARGS(f->fmt.pix_mp.pixelformat));
+		&f->fmt.pix_mp.pixelformat);
 	return 0;
 }
 
@@ -1393,9 +1393,9 @@ static int pispbe_node_s_fmt_vid_out(struct file *file, void *priv,
 	node->pisp_format = find_format(f->fmt.pix_mp.pixelformat);
 
 	dev_dbg(pispbe->dev,
-		"Set output format for node %s to " V4L2_FOURCC_CONV "\n",
+		"Set output format for node %s to %p4cc\n",
 		NODE_NAME(node),
-		V4L2_FOURCC_CONV_ARGS(f->fmt.pix_mp.pixelformat));
+		&f->fmt.pix_mp.pixelformat);
 	return 0;
 }
 
@@ -1413,9 +1413,9 @@ static int pispbe_node_s_fmt_meta_out(struct file *file, void *priv,
 	node->pisp_format = &meta_out_supported_formats[0];
 
 	dev_dbg(pispbe->dev,
-		"Set output format for meta node %s to " V4L2_FOURCC_CONV "\n",
+		"Set output format for meta node %s to %p4cc\n",
 		NODE_NAME(node),
-		V4L2_FOURCC_CONV_ARGS(f->fmt.meta.dataformat));
+		&f->fmt.meta.dataformat);
 	return 0;
 }
 
@@ -1433,9 +1433,9 @@ static int pispbe_node_s_fmt_meta_cap(struct file *file, void *priv,
 	node->pisp_format = find_format(f->fmt.meta.dataformat);
 
 	dev_dbg(pispbe->dev,
-		"Set capture format for meta node %s to " V4L2_FOURCC_CONV "\n",
+		"Set capture format for meta node %s to %p4cc\n",
 		NODE_NAME(node),
-		V4L2_FOURCC_CONV_ARGS(f->fmt.meta.dataformat));
+		&f->fmt.meta.dataformat);
 	return 0;
 }
 
