@@ -857,9 +857,7 @@ static int cfe_start_streaming_all(struct cfe_device *cfe)
 
 	/*
 	 * 1. Configure CSI2 & FE
-	 *    - Collect the necessary info from the nodes, and program CSI2 & FE
-	 * 2. Queue initial buffer
-	 *    - Program the initial buffers to CSI2 & FE
+	 * 2. Queue initial buffers
 	 * 3. Start CSI2 PHY
 	 * 4. Enable source
 	 */
