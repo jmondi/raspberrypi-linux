@@ -18180,6 +18180,17 @@ F:	drivers/ras/
 F:	include/linux/ras.h
 F:	include/ras/ras_event.h
 
+RASPBERRY PI PISP BACK END
+M: Dave Stevenson <dave.stevenson@raspberrypi.com>
+M: David Plowman <david.plowman@raspberrypi.com>
+M: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+M: Naushir Patuck <naush@raspberrypi.com>
+M: Nick Hollinghurst <nick.hollinghurst@raspberrypi.com>
+S: Maintained
+L: linux-media@vger.kernel.org
+F: Documentation/devicetree/bindings/media/raspberrypi,pispbe.yaml
+F: drivers/media/platform/raspberrypi/pisp_be/
+
 RAYLINK/WEBGEAR 802.11 WIRELESS LAN DRIVER
 L:	linux-wireless@vger.kernel.org
 S:	Orphan
